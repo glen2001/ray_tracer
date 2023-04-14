@@ -22,12 +22,12 @@ SPHERE3 = sphere(pg.math.Vector3(width/2 - 100, height/2, 400), 100)
 SPHERE3.rayTracingMaterial.color = pg.math.Vector3(255, 255, 0)
 
 SPHERE4 = sphere(pg.math.Vector3(width/2, height/2 + 600, 600), 600)
-SPHERE4.rayTracingMaterial.color = pg.math.Vector3(127, 71, 186)
+SPHERE4.rayTracingMaterial.color = pg.math.Vector3(255, 255, 255)
 
 SPHERE5 = sphere(pg.math.Vector3(width/2 + 250, height/2 + 50, 300), 50)
 SPHERE5.rayTracingMaterial.color = pg.math.Vector3(255, 0, 255)
 
-SPHERE2 = sphere(pg.math.Vector3(width/2, -510, 200), 500)
+SPHERE2 = sphere(pg.math.Vector3(width/2 - 200, height/2 - 400, 800), 300)
 SPHERE2.rayTracingMaterial.emissionStrength = 1
 SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(255, 255, 255)
 SPHERE2.rayTracingMaterial.color = pg.math.Vector3(0, 0, 0)
@@ -48,7 +48,7 @@ for k in range(iterations):
   for i in range(width):
     for j in range(height):
       RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-      pixelColor.append(Trace(RAY, spheres, 4))
+      pixelColor.append(Trace(RAY, spheres, 3))
 
   TWOD_PixelColor = nest_list(pixelColor, width, height)
   iterPixels.append(TWOD_PixelColor)
