@@ -1,5 +1,6 @@
 import pygame as pg
 import numpy as np
+import random
 
 class ray:
     def __init__(self, pos = pg.math.Vector3(), dir = pg.math.Vector3()):
@@ -62,7 +63,8 @@ def CalculateRayCollision(ray = ray(), spheres = []):
     return clostestHit
 
 def RandomNormalVec(normal = pg.math.Vector3()):
-    dir = pg.math.Vector3(np.random.rand(), np.random.rand(), np.random.rand())
+    dir = pg.math.Vector3(random.uniform(-1, 1), random.uniform(-1, 1), random.uniform(-1, 1))
+    dir.normalize()
     dot = pg.math.Vector3.dot(normal, dir)
     if dot < 0:
         dir = -dir
@@ -85,8 +87,14 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
             rayColor = rayColor.elementwise() * material.color
         else:
             break
-    if incomingLight.length() > 0:
-        incomingLight.scale_to_length(255)
+
+    if incomingLight[0] > 255:
+        incomingLight[0] = 255
+    if incomingLight[1] > 255:
+        incomingLight[1] = 255
+    if incomingLight[2] > 255:
+        incomingLight[2] = 255
+        
     return incomingLight
 
 def nest_list(list1,rows, columns):    

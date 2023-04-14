@@ -12,38 +12,65 @@ pg.init()
 fps = 60
 fpsClock = pg.time.Clock()
  
-width, height = 800, 800
+width, height = 600, 600
 screen = pg.display.set_mode((width, height), pg.RESIZABLE)
 
-SPHERE1 = sphere(pg.math.Vector3(400, height/2, 400), 100)
+SPHERE1 = sphere(pg.math.Vector3(width/2 + 100, height/2, 400), 100)
 SPHERE1.rayTracingMaterial.color = pg.math.Vector3(255, 0, 0)
 
-SPHERE2 = sphere(pg.math.Vector3(0, 0, 200), 200)
+SPHERE3 = sphere(pg.math.Vector3(width/2 - 100, height/2, 400), 100)
+SPHERE3.rayTracingMaterial.color = pg.math.Vector3(255, 255, 0)
+
+SPHERE4 = sphere(pg.math.Vector3(width/2, height/2 + 600, 600), 600)
+SPHERE4.rayTracingMaterial.color = pg.math.Vector3(127, 71, 186)
+
+SPHERE5 = sphere(pg.math.Vector3(width/2 + 250, height/2 + 50, 300), 50)
+SPHERE5.rayTracingMaterial.color = pg.math.Vector3(255, 0, 255)
+
+SPHERE2 = sphere(pg.math.Vector3(width/2, -510, 200), 500)
 SPHERE2.rayTracingMaterial.emissionStrength = 1
 SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(255, 255, 255)
 SPHERE2.rayTracingMaterial.color = pg.math.Vector3(0, 0, 0)
-
-SPHERE3 = sphere(pg.math.Vector3(200, height/2, 200), 50)
-SPHERE3.rayTracingMaterial.color = pg.math.Vector3(0, 0, 255)
 
 spheres = []
 spheres.append(SPHERE1)
 spheres.append(SPHERE2)
 spheres.append(SPHERE3)
+spheres.append(SPHERE4)
+spheres.append(SPHERE5)
 
+iterations = 10
+iterPixels = []
 
-pixelColor = []
+for k in range(iterations):
+  print(f'Iteration: {k + 1}')
+  pixelColor = []
+  for i in range(width):
+    for j in range(height):
+      RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
+      pixelColor.append(Trace(RAY, spheres, 4))
+
+  TWOD_PixelColor = nest_list(pixelColor, width, height)
+  iterPixels.append(TWOD_PixelColor)
+
+avgPixels = []
+
+print('Averaging Pixels...')
 
 for i in range(width):
-  for j in range(height):
-    RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-    pixelColor.append(Trace(RAY, spheres, 10))
+    for j in range(height):
+      avgPixels.append(pg.math.Vector3())
 
-#pixelColor = np.asarray(pixelColor)
-#TWOD_PixelColor = pixelColor.reshape(width, height)
+avgPixels = nest_list(avgPixels, width, height)
 
-TWOD_PixelColor = nest_list(pixelColor, width, height)
+for a in iterPixels:
+  for i in range(width):
+    for j in range(height):
+      avgPixels[i][j] += a[i][j]
 
+for i in range(width):
+    for j in range(height):
+      avgPixels[i][j] = avgPixels[i][j] / iterations
 
 t2 = time.time()
 print(f'Render Complete! \nComputation Time: {t2-t1:.2f} seconds.')
@@ -63,6 +90,6 @@ while True:
 
   for i in range(width):
     for j in range(height):
-      color = TWOD_PixelColor[i][j]
+      color = avgPixels[i][j]
       screen.set_at((i,j), (color[0], color[1], color[2]))
         
