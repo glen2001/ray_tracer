@@ -7,14 +7,16 @@ class ray:
         self.pos = pos
 
 class rayTracingMaterial:
-    def __init__(self, color = pg.math.Vector3()):
+    def __init__(self, color = pg.math.Vector3(), emissionColor = pg.math.Vector3(), emissionStrength = 0):
         self.color = color
+        self.emissionColor = emissionColor
+        self.emissionStrength = emissionStrength
 
 class sphere:
-    def __init__(self, pos = pg.math.Vector3(), radius = 0, rayTracingMaterial = rayTracingMaterial()):
+    def __init__(self, pos = pg.math.Vector3(), radius = 0):
         self.pos = pos
         self.radius = radius
-        self.rayTracingMaterial = rayTracingMaterial
+        self.rayTracingMaterial = rayTracingMaterial()
 
 class hitInfo:
     def __init__(self, didHit = False, hitPos = None, dist = 0, normal = None, rayTracingMaterial = rayTracingMaterial()):
@@ -58,3 +60,41 @@ def CalculateRayCollision(ray = ray(), spheres = []):
             clostestHit.rayTracingMaterial = SPHERE.rayTracingMaterial
 
     return clostestHit
+
+def RandomNormalVec(normal = pg.math.Vector3()):
+    dir = pg.math.Vector3(np.random.rand(), np.random.rand(), np.random.rand())
+    dot = pg.math.Vector3.dot(normal, dir)
+    if dot < 0:
+        dir = -dir
+
+    return dir
+
+def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
+    incomingLight = pg.math.Vector3()
+    rayColor = pg.math.Vector3(255, 255, 255)
+
+    for i in range(maxBounceCount):
+        HIT_INFO = CalculateRayCollision(ray, spheres)
+        if HIT_INFO.didHit:
+            ray.pos = HIT_INFO.hitPos
+            ray.dir = RandomNormalVec(HIT_INFO.normal)
+
+            material = HIT_INFO.rayTracingMaterial
+            emittedLight = material.emissionColor * material.emissionStrength
+            incomingLight += emittedLight.elementwise() * rayColor
+            rayColor = rayColor.elementwise() * material.color
+        else:
+            break
+    if incomingLight.length() > 0:
+        incomingLight.scale_to_length(255)
+    return incomingLight
+
+def nest_list(list1,rows, columns):    
+        result=[]               
+        start = 0
+        end = columns
+        for i in range(rows): 
+            result.append(list1[start:end])
+            start +=columns
+            end += columns
+        return result
