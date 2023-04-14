@@ -6,23 +6,23 @@ class ray:
         self.dir = dir
         self.pos = pos
 
+class rayTracingMaterial:
+    def __init__(self, color = pg.math.Vector3()):
+        self.color = color
 
 class sphere:
-    def __init__(self, pos = pg.math.Vector3(), radius = 0, rayTracingMaterial = None):
+    def __init__(self, pos = pg.math.Vector3(), radius = 0, rayTracingMaterial = rayTracingMaterial()):
         self.pos = pos
         self.radius = radius
         self.rayTracingMaterial = rayTracingMaterial
 
 class hitInfo:
-    def __init__(self, didHit = False, hitPos = None, dist = 0, normal = None):
+    def __init__(self, didHit = False, hitPos = None, dist = 0, normal = None, rayTracingMaterial = rayTracingMaterial()):
         self.didHit = didHit
         self.hitPos = hitPos
         self.dist = dist
         self.normal = normal
-
-class rayTracingMaterial:
-    def __init__(self, color = pg.math.Vector3()):
-        self.color = color
+        self.rayTracingMaterial = rayTracingMaterial
 
 def RaySphere(ray = ray(), sphereCenter = pg.math.Vector3(), sphereRadius = 0):
     HIT_INFO = hitInfo()
@@ -45,3 +45,16 @@ def RaySphere(ray = ray(), sphereCenter = pg.math.Vector3(), sphereRadius = 0):
 
     return HIT_INFO
 
+def CalculateRayCollision(ray = ray(), spheres = []):
+    clostestHit = hitInfo()
+    clostestHit.dist = np.inf
+
+    for i in spheres:
+        SPHERE = i
+        HIT_INFO = RaySphere(ray, SPHERE.pos, SPHERE.radius)
+
+        if (HIT_INFO.didHit and HIT_INFO.dist < clostestHit.dist):
+            clostestHit = HIT_INFO
+            clostestHit.rayTracingMaterial = SPHERE.rayTracingMaterial
+
+    return clostestHit
