@@ -27,7 +27,7 @@ SPHERE4.rayTracingMaterial.color = pg.math.Vector3(255, 255, 255)
 SPHERE5 = sphere(pg.math.Vector3(width/2 + 250, height/2 + 50, 300), 50)
 SPHERE5.rayTracingMaterial.color = pg.math.Vector3(255, 0, 255)
 
-SPHERE2 = sphere(pg.math.Vector3(width/2 - 200, height/2 - 400, 400), 200)
+SPHERE2 = sphere(pg.math.Vector3(width/2 + 200, -701, 200), 700)
 SPHERE2.rayTracingMaterial.emissionStrength = 1
 SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(255, 255, 255)
 SPHERE2.rayTracingMaterial.color = pg.math.Vector3(0, 0, 0)
@@ -39,7 +39,7 @@ spheres.append(SPHERE3)
 spheres.append(SPHERE4)
 spheres.append(SPHERE5)
 
-iterations = 5
+iterations = 100
 iterPixels = []
 
 for k in range(iterations):
