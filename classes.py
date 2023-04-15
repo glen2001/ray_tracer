@@ -88,12 +88,11 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
         else:
             break
 
-    if incomingLight[0] > 255:
-        incomingLight[0] = 255
-    if incomingLight[1] > 255:
-        incomingLight[1] = 255
-    if incomingLight[2] > 255:
-        incomingLight[2] = 255
+    incomingLight[0] = incomingLight[0] % 256
+    incomingLight[1] = incomingLight[1] % 256
+    incomingLight[2] = incomingLight[2] % 256
+
+    #Need to find way to renormalize these values
         
     return incomingLight
 
