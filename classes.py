@@ -73,7 +73,7 @@ def RandomNormalVec(normal = pg.math.Vector3()):
 
 def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
     incomingLight = pg.math.Vector3()
-    rayColor = pg.math.Vector3(255, 255, 255)
+    rayColor = pg.math.Vector3(1, 1, 1)
 
     for i in range(maxBounceCount):
         HIT_INFO = CalculateRayCollision(ray, spheres)

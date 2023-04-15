@@ -16,20 +16,20 @@ width, height = 600, 600
 screen = pg.display.set_mode((width, height), pg.RESIZABLE)
 
 SPHERE1 = sphere(pg.math.Vector3(width/2 + 100, height/2, 400), 100)
-SPHERE1.rayTracingMaterial.color = pg.math.Vector3(255, 0, 0)
+SPHERE1.rayTracingMaterial.color = pg.math.Vector3(219, 11, 115)
 
 SPHERE3 = sphere(pg.math.Vector3(width/2 - 100, height/2, 400), 100)
-SPHERE3.rayTracingMaterial.color = pg.math.Vector3(255, 255, 0)
+SPHERE3.rayTracingMaterial.color = pg.math.Vector3(161, 219, 156)
 
 SPHERE4 = sphere(pg.math.Vector3(width/2, height/2 + 600, 600), 600)
-SPHERE4.rayTracingMaterial.color = pg.math.Vector3(0, 255, 0)
+SPHERE4.rayTracingMaterial.color = pg.math.Vector3(189, 66, 111)
 
 SPHERE5 = sphere(pg.math.Vector3(width/2 + 250, height/2 + 50, 300), 50)
 SPHERE5.rayTracingMaterial.color = pg.math.Vector3(255, 0, 255)
 
 SPHERE2 = sphere(pg.math.Vector3(width/2 , -801,300), 800)
 SPHERE2.rayTracingMaterial.emissionStrength = 1
-SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(255, 255, 255)
+SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
 SPHERE2.rayTracingMaterial.color = pg.math.Vector3(0, 0, 0)
 
 spheres = []
@@ -39,7 +39,7 @@ spheres.append(SPHERE3)
 spheres.append(SPHERE4)
 spheres.append(SPHERE5)
 
-iterations = 200
+iterations = 10
 iterPixels = []
 
 for k in range(iterations):
