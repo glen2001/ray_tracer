@@ -87,17 +87,13 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
 
             emittedLight = material.emissionColor * material.emissionStrength
             incomingLight += emittedLight.elementwise() * rayColor
-            rayColor = rayColor.elementwise() * material.color
+            rayColor = (rayColor.elementwise() * material.color) / 255
         else:
             break
 
-    # incomingLight[0] = incomingLight[0] % 256
-    # incomingLight[1] = incomingLight[1] % 256
-    # incomingLight[2] = incomingLight[2] % 256
-    if incomingLight.length() > 0:
-        incomingLight.scale_to_length(255)
-
-    #Need to find way to renormalize these values
+    incomingLight[0] = int(incomingLight[0])
+    incomingLight[1] = int(incomingLight[1])
+    incomingLight[2] = int(incomingLight[2])
         
     return incomingLight
 
