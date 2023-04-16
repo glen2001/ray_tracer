@@ -39,7 +39,7 @@ spheres.append(SPHERE2)
 spheres.append(SPHERE4)
 # spheres.append(SPHERE5)
 
-iterations = 1
+iterations = 10
 iterPixels = []
 
 for k in range(iterations):
@@ -48,7 +48,7 @@ for k in range(iterations):
   for i in range(width):
     for j in range(height):
       RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-      pixelColor.append(Trace(RAY, spheres, 3))
+      pixelColor.append(Trace(RAY, spheres, 4))
 
   TWOD_PixelColor = nest_list(pixelColor, width, height)
   iterPixels.append(TWOD_PixelColor)
