@@ -8,10 +8,11 @@ class ray:
         self.pos = pos
 
 class rayTracingMaterial:
-    def __init__(self, color = pg.math.Vector3(), emissionColor = pg.math.Vector3(), emissionStrength = 0):
+    def __init__(self, color = pg.math.Vector3(), emissionColor = pg.math.Vector3(), emissionStrength = 0, smoothness = 0):
         self.color = color
         self.emissionColor = emissionColor
         self.emissionStrength = emissionStrength
+        self.smoothness = smoothness
 
 class sphere:
     def __init__(self, pos = pg.math.Vector3(), radius = 0):
@@ -77,20 +78,24 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
 
     for i in range(maxBounceCount):
         HIT_INFO = CalculateRayCollision(ray, spheres)
+        material = HIT_INFO.rayTracingMaterial
         if HIT_INFO.didHit:
             ray.pos = HIT_INFO.hitPos
-            ray.dir = RandomNormalVec(HIT_INFO.normal)
+            diffused = RandomNormalVec(HIT_INFO.normal)
+            specular = pg.math.Vector3.reflect(ray.dir, HIT_INFO.normal)
+            ray.dir = pg.math.Vector3.lerp(diffused, specular, material.smoothness)
 
-            material = HIT_INFO.rayTracingMaterial
             emittedLight = material.emissionColor * material.emissionStrength
             incomingLight += emittedLight.elementwise() * rayColor
             rayColor = rayColor.elementwise() * material.color
         else:
             break
 
-    incomingLight[0] = incomingLight[0] % 256
-    incomingLight[1] = incomingLight[1] % 256
-    incomingLight[2] = incomingLight[2] % 256
+    # incomingLight[0] = incomingLight[0] % 256
+    # incomingLight[1] = incomingLight[1] % 256
+    # incomingLight[2] = incomingLight[2] % 256
+    if incomingLight.length() > 0 and incomingLight.length() > 255:
+        incomingLight.scale_to_length(255)
 
     #Need to find way to renormalize these values
         
