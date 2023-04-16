@@ -12,7 +12,7 @@ pg.init()
 fps = 60
 fpsClock = pg.time.Clock()
  
-width, height = 400, 400
+width, height = 600, 600
 screen = pg.display.set_mode((width, height), pg.RESIZABLE)
 
 SPHERE1 = sphere(pg.math.Vector3(width/2 + 100, height/2, 400), 100)
@@ -27,8 +27,9 @@ SPHERE4.rayTracingMaterial.color = pg.math.Vector3(189, 66, 111)
 
 SPHERE5 = sphere(pg.math.Vector3(width/2 + 250, height/2 + 50, 300), 50)
 SPHERE5.rayTracingMaterial.color = pg.math.Vector3(255, 0, 255)
+SPHERE5.rayTracingMaterial.smoothness = 0.7
 
-SPHERE2 = sphere(pg.math.Vector3(width/2 , -300, 1200), 600)
+SPHERE2 = sphere(pg.math.Vector3(width/2 , -601, 300), 600)
 SPHERE2.rayTracingMaterial.emissionStrength = 1
 SPHERE2.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
 SPHERE2.rayTracingMaterial.color = pg.math.Vector3(0, 0, 0)
@@ -38,9 +39,9 @@ spheres.append(SPHERE1)
 spheres.append(SPHERE2)
 spheres.append(SPHERE3)
 spheres.append(SPHERE4)
-# spheres.append(SPHERE5)
+spheres.append(SPHERE5)
 
-iterations = 1
+iterations = 50
 iterPixels = []
 
 for k in range(iterations):
@@ -49,7 +50,7 @@ for k in range(iterations):
   for i in range(width):
     for j in range(height):
       RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-      pixelColor.append(Trace(RAY, spheres, 4))
+      pixelColor.append(Trace(RAY, spheres, 5))
 
   TWOD_PixelColor = nest_list(pixelColor, width, height)
   iterPixels.append(TWOD_PixelColor)

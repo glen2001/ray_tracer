@@ -94,7 +94,7 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
     # incomingLight[0] = incomingLight[0] % 256
     # incomingLight[1] = incomingLight[1] % 256
     # incomingLight[2] = incomingLight[2] % 256
-    if incomingLight.length() > 0 and incomingLight.length() > 255:
+    if incomingLight.length() > 0:
         incomingLight.scale_to_length(255)
 
     #Need to find way to renormalize these values
