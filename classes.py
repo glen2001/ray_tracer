@@ -89,6 +89,7 @@ def Trace(ray = ray(), spheres = [], maxBounceCount = 1):
             incomingLight += emittedLight.elementwise() * rayColor
             rayColor = (rayColor.elementwise() * material.color) / 255
         else:
+            incomingLight += pg.math.Vector3(53, 174, 240).elementwise() * rayColor
             break
 
     incomingLight[0] = int(incomingLight[0])

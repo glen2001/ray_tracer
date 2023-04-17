@@ -9,13 +9,8 @@ from objectPlacement import *
 t1 = time.time()
 print('Rendering Scene...')
 
-pg.init()
-fps = 1
-fpsClock = pg.time.Clock()
-
-screen = pg.display.set_mode((width, height), pg.RESIZABLE)
-
-iterations = 1
+iterations = 50
+bounces = 10
 iterPixels = []
 
 def allPixels():
@@ -23,7 +18,7 @@ def allPixels():
   for i in range(width):
     for j in range(height):
       RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-      pixelColor.append(Trace(RAY, spheres, 5))
+      pixelColor.append(Trace(RAY, spheres, bounces))
 
   TWOD_PixelColor = nest_list(pixelColor, width, height)
   iterPixels.append(TWOD_PixelColor)
@@ -53,6 +48,11 @@ for i in range(width):
 
 t2 = time.time()
 print(f'Render Complete! \nComputation Time: {t2-t1:.2f} seconds.')
+
+pg.init()
+fps = 60
+fpsClock = pg.time.Clock()
+screen = pg.display.set_mode((width, height), pg.RESIZABLE)
 
 # Game loop.
 while True:  
