@@ -49,7 +49,7 @@ spheres.append(SPHERE4)
 spheres.append(SPHERE5)
 spheres.append(SPHERE6)
 
-iterations = 20
+iterations = 500
 iterPixels = []
 
 for k in range(iterations):
