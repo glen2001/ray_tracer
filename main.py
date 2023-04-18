@@ -9,8 +9,8 @@ from objectPlacement import *
 t1 = time.time()
 print('Rendering Scene...')
 
-iterations = 100
-bounces = 4
+iterations = 20
+bounces = 15
 iterPixels = []
 
 def allPixels():
