@@ -65,53 +65,40 @@ def RaySphere(ray = ray(), sphereCenter = pg.math.Vector3(), sphereRadius = 0):
 
 def RayTriangle(ray = ray(), triangle = triangle()):
     HIT_INFO = hitInfo()
+    
+    epsilon = 0.0000001
+    edge1 = triangle.v1 - triangle.v0
+    edge2 = triangle.v2 - triangle.v0
+    h = ray.dir.cross(edge2)
+    a = edge1.dot(h)
 
-    N = triangle.normal()
-    normalDotRay = N.dot(ray.dir)
-
-    if(np.abs(normalDotRay) < 0.00001):
-        HIT_INFO.didHit = False
+    if a > -epsilon and a < epsilon:
         return HIT_INFO
     
-    d = -N.dot(triangle.v0)
-    t = -(N.dot(ray.pos) + d) / normalDotRay
+    f = 1.0 / a
+    s = ray.pos - triangle.v0
+    u = f * s.dot(h)
 
-    if(t < 0):
-        HIT_INFO.didHit = False
+    if u < 0 or u > 1:
         return HIT_INFO
     
-    P = ray.pos + (ray.dir * t)
-    C = pg.math.Vector3()
+    q = s.cross(edge1)
+    v = f * ray.dir.dot(q)
 
-    edge0 = triangle.v1 - triangle.v0
-    vp0 = P - triangle.v0
-    C = edge0.cross(vp0)
-
-    if (N.dot(C) < 0):
-        HIT_INFO.didHit = False
+    if v < 0 or u + v > 1:
         return HIT_INFO
 
-    edge1 = triangle.v2 - triangle.v1
-    vp1 = P - triangle.v1
-    C = edge1.cross(vp1)
+    t = f * edge2.dot(q)
 
-    if (N.dot(C) < 0):
+    if t > epsilon:
+        HIT_INFO.didHit = True
+        HIT_INFO.dist = t
+        HIT_INFO.hitPos = ray.pos + (ray.dir * t)
+        HIT_INFO.normal = triangle.normal()
+        return HIT_INFO
+    else:
         HIT_INFO.didHit = False
         return HIT_INFO
-    
-    edge2 = triangle.v0 - triangle.v2
-    vp2 = P - triangle.v2
-    C = edge2.cross(vp2)
-    
-    if(N.dot(C) < 0):
-        HIT_INFO.didHit = False
-        return HIT_INFO
-    
-    HIT_INFO.didHit = True
-    HIT_INFO.dist = t
-    HIT_INFO.hitPos = P
-    HIT_INFO.normal = pg.math.Vector3.normalize(N)
-    return HIT_INFO
 
 
 
@@ -164,6 +151,7 @@ def Trace(ray = ray(), spheres = [], triangles = [], maxBounceCount = 1):
             rayColor = (rayColor.elementwise() * material.color) / 255
         else:
             incomingLight += pg.math.Vector3(53, 174, 240).elementwise() * rayColor
+            # incomingLight += pg.math.Vector3(0, 0, 0).elementwise() * rayColor
             break
     
     

@@ -9,7 +9,7 @@ from objectPlacement import *
 t1 = time.time()
 print('Rendering Scene...')
 
-iterations = 1
+iterations = 100
 bounces = 4
 iterPixels = []
 
@@ -26,6 +26,10 @@ def allPixels():
 for k in range(iterations):
   print(f'Iteration: {k + 1}')
   allPixels()
+  if k == 0:
+    tEstimated = time.time()
+    print(f'Estimated Render Time: {(((tEstimated-t1) / 60) * (iterations)):.2f} minutes')
+    
 
 avgPixels = []
 
@@ -47,7 +51,7 @@ for i in range(width):
       avgPixels[i][j] = avgPixels[i][j] / iterations
 
 t2 = time.time()
-print(f'Render Complete! \nComputation Time: {t2-t1:.2f} seconds.')
+print(f'Render Complete! \nComputation Time: {(t2-t1) / 60:.2f} minutes.')
 
 pg.init()
 fps = 60
