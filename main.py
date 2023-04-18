@@ -9,8 +9,8 @@ from objectPlacement import *
 t1 = time.time()
 print('Rendering Scene...')
 
-iterations = 50
-bounces = 10
+iterations = 1
+bounces = 3
 iterPixels = []
 
 def allPixels():
@@ -18,7 +18,7 @@ def allPixels():
   for i in range(width):
     for j in range(height):
       RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3(0, 0, 1))
-      pixelColor.append(Trace(RAY, spheres, bounces))
+      pixelColor.append(Trace(RAY, spheres, triangles, bounces))
 
   TWOD_PixelColor = nest_list(pixelColor, width, height)
   iterPixels.append(TWOD_PixelColor)
