@@ -21,16 +21,16 @@ class sphere:
         self.rayTracingMaterial = rayTracingMaterial()
 
 class triangle:
-    def __init__(self, p1 = pg.math.Vector3(), p2 = pg.math.Vector3(), p3 = pg.math.Vector3()):
-        self.p1 = p1
-        self.p2 = p2
-        self.p3 = p3
+    def __init__(self, v0 = pg.math.Vector3(), v1 = pg.math.Vector3(), v2 = pg.math.Vector3()):
+        self.v0 = v0
+        self.v1 = v1
+        self.v2 = v2
         self.rayTracingMaterial = rayTracingMaterial()
 
     def normal(self):
-        p1p2 = self.p2 - self.p1
-        p1p3 = self.p3 - self.p1
-        return pg.math.Vector3.cross(p1p2, p1p3)
+        v0v1 = self.v1 - self.v0
+        v0v2 = self.v2 - self.v0
+        return v0v1.cross(v0v2)
 
 
 
@@ -69,39 +69,42 @@ def RayTriangle(ray = ray(), triangle = triangle()):
     N = triangle.normal()
     normalDotRay = N.dot(ray.dir)
 
-    if(np.abs(normalDotRay) < 0.001):
+    if(np.abs(normalDotRay) < 0.00001):
+        HIT_INFO.didHit = False
         return HIT_INFO
     
-    d = -N.dot(triangle.p1)
+    d = -N.dot(triangle.v0)
     t = -(N.dot(ray.pos) + d) / normalDotRay
 
     if(t < 0):
+        HIT_INFO.didHit = False
         return HIT_INFO
     
-    P = ray.pos + (t * ray.dir)
+    P = ray.pos + (ray.dir * t)
+    C = pg.math.Vector3()
 
-    edge1 = triangle.p2 - triangle.p1
-    point0 = P - triangle.p1
-    # C1 = edge1.cross(point0)
-    C1 = pg.math.Vector3(edge1, point0)
+    edge0 = triangle.v1 - triangle.v0
+    vp0 = P - triangle.v0
+    C = edge0.cross(vp0)
 
-    if (N.dot(C1) < 0):
+    if (N.dot(C) < 0):
+        HIT_INFO.didHit = False
         return HIT_INFO
 
-    edge2 = triangle.p3 - triangle.p2
-    point1 = P - triangle.p2
-    # C2 = edge2.cross(point1)
-    C2 = pg.math.Vector3(edge2, point1)
+    edge1 = triangle.v2 - triangle.v1
+    vp1 = P - triangle.v1
+    C = edge1.cross(vp1)
 
-    if (N.dot(C2) < 0):
+    if (N.dot(C) < 0):
+        HIT_INFO.didHit = False
         return HIT_INFO
     
-    edge3 = triangle.p1 - triangle.p3
-    point2 = P - triangle.p3
-    # C3 = edge3.cross(point2)
-    C3 = pg.math.Vector3(edge3, point2)
+    edge2 = triangle.v0 - triangle.v2
+    vp2 = P - triangle.v2
+    C = edge2.cross(vp2)
     
-    if(N.dot(C3) < 0):
+    if(N.dot(C) < 0):
+        HIT_INFO.didHit = False
         return HIT_INFO
     
     HIT_INFO.didHit = True

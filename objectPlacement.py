@@ -8,10 +8,10 @@ p2 = pg.math.Vector3(100, 400, 400)
 p3 = pg.math.Vector3(400, 100, 200)
 
 TRIANGLE = triangle(p1, p2, p3) 
-TRIANGLE.rayTracingMaterial.color = pg.math.Vector3(100, 22, 22)
+TRIANGLE.rayTracingMaterial.color = pg.math.Vector3(255, 255, 255)
 TRIANGLE.rayTracingMaterial.smoothness = .5
 
-s1 = sphere(p1, 20)
+s1 = sphere(p1, 50)
 s1.rayTracingMaterial.color = pg.math.Vector3(255, 1, 1)
 s1.rayTracingMaterial.smoothness = .5
 
@@ -37,4 +37,4 @@ spheres.append(lightSource)
 # spheres.append(behindCameraSphere2)
 
 triangles = []
-# triangles.append(TRIANGLE)
+triangles.append(TRIANGLE)

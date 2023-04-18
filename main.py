@@ -10,7 +10,7 @@ t1 = time.time()
 print('Rendering Scene...')
 
 iterations = 1
-bounces = 3
+bounces = 4
 iterPixels = []
 
 def allPixels():
