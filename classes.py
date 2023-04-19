@@ -2,6 +2,8 @@ import pygame as pg
 import numpy as np
 import random
 
+#This file contains classes, as well as helper functions used in main and objectPlacement
+
 class ray:
     def __init__(self, pos = pg.math.Vector3(), dir = pg.math.Vector3()):
         self.dir = dir
@@ -170,3 +172,13 @@ def nest_list(list1,rows, columns):
             start +=columns
             end += columns
         return result
+
+def allPixels(width, height, bounces, spheres, triangles):
+  pixelColor = []
+  fov_factor = 0.0005
+  for i in range(width):
+    for j in range(height):
+      RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3((i-width/2) * fov_factor, (j-height/2) * fov_factor, 1))
+      pixelColor.append(Trace(RAY, spheres, triangles, bounces))
+
+  return nest_list(pixelColor, width, height)

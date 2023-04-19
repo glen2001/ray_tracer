@@ -1,4 +1,3 @@
 TODO:
 
-1: Make averaging more efficient, don't store all iterations in an array, just send them them straight to avgPixels
-2: Multithreading?
+1: Multithreading?
