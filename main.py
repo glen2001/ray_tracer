@@ -15,7 +15,7 @@ print('Rendering Scene...')
 
 #initialize simulation values
 iterations = 50
-bounces = 3
+bounces = 6
 
 #initialize avgPixels with vectors of length 0, then nest into 2d array. Note that color is stored in the form of a Vector3, mainly for convience
 avgPixels = []

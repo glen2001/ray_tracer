@@ -175,10 +175,11 @@ def nest_list(list1,rows, columns):
 
 def allPixels(width, height, bounces, spheres, triangles):
   pixelColor = []
-  fov_factor = 0.0005
+#   fov_factor = 0.0005
+  fov_factor = 0.001
   for i in range(width):
     for j in range(height):
-      RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3((i-width/2) * fov_factor, (j-height/2) * fov_factor, 1))
+      RAY = ray(pg.math.Vector3(i, j, 0), pg.math.Vector3((i-width/2) * fov_factor, (j-height/2) * fov_factor, 1).normalize())
       pixelColor.append(Trace(RAY, spheres, triangles, bounces))
 
   return nest_list(pixelColor, width, height)
