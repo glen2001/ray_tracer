@@ -16,11 +16,6 @@ CbottomBackRight = pg.math.Vector3(width, height, 500)
 CbottomFrontLeft = pg.math.Vector3(0, height, -200)
 CbottomFrontRight = pg.math.Vector3(width, height, -200)
 
-#top of window
-backLeftT = pg.math.Vector3(-300, 0, 750)
-backRightT = pg.math.Vector3(width + 300, 0, 750)
-frontLeftT = pg.math.Vector3(-300, 0, -200)
-frontRightT = pg.math.Vector3(width + 300, 0 , -200)
 
 #sphere points
 mainSpherePos = pg.math.Vector3(width/2, height/2 + 200, 200)
@@ -30,56 +25,54 @@ mediumSpherePos = pg.math.Vector3(width/2 - 200, height/3, 300)
 mediumSpherePos2 = pg.math.Vector3(3*width/4 + 50, height/2 + 220, 200)
 
 plane1 = triangle(CtopBackRight, CtopBackLeft, CbottomBackLeft)
-plane1.rayTracingMaterial.color = pg.math.Vector3(147, 13, 219)
-plane1.rayTracingMaterial.smoothness = 0.4
+plane1.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
+plane1.rayTracingMaterial.smoothness = 1
 
 plane2 = triangle(CbottomBackRight, CtopBackRight, CbottomBackLeft)
-plane2.rayTracingMaterial.color = pg.math.Vector3(147, 13, 219)
-plane2.rayTracingMaterial.smoothness = 0.4
+plane2.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
+plane2.rayTracingMaterial.smoothness = 1
 
 plane3 = triangle(CbottomBackRight, CbottomBackLeft, CbottomFrontLeft)
-plane3.rayTracingMaterial.color = pg.math.Vector3(13, 212, 219)
-plane3.rayTracingMaterial.smoothness = 0.4
+plane3.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
+plane3.rayTracingMaterial.smoothness = 0
 
 plane4 = triangle(CbottomFrontRight, CbottomBackRight, CbottomFrontLeft)
-plane4.rayTracingMaterial.color = pg.math.Vector3(13, 212, 219)
-plane4.rayTracingMaterial.smoothness = 0.4
+plane4.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
+plane4.rayTracingMaterial.smoothness = 0
 
 plane5 = triangle(CbottomBackLeft, CtopBackLeft, CtopFrontLeft)
-plane5.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane5.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane5.rayTracingMaterial.smoothness = 1
 
 plane6 = triangle(CbottomFrontLeft, CbottomBackLeft, CtopFrontLeft)
-plane6.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane6.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane6.rayTracingMaterial.smoothness = 1
 
 plane7 = triangle(CtopBackRight, CbottomBackRight, CtopFrontRight)
-plane7.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane7.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane7.rayTracingMaterial.smoothness = 1
 
 plane8 = triangle(CbottomBackRight, CbottomFrontRight, CtopFrontRight)
-plane8.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane8.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane8.rayTracingMaterial.smoothness = 1
 
 plane9 = triangle(CtopFrontLeft, CbottomFrontLeft, CtopFrontRight)
-plane9.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane9.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane9.rayTracingMaterial.smoothness = 1
 
 plane10 = triangle(CtopFrontRight, CbottomFrontLeft, CbottomFrontRight)
-plane10.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
+plane10.rayTracingMaterial.color = pg.math.Vector3(250, 244, 227)
 plane10.rayTracingMaterial.smoothness = 1
 
-# lightSource1 = triangle(backLeftT, backRightT, frontLeftT)
 lightSource1 = triangle(CtopBackLeft, CtopBackRight, CtopFrontLeft)
-lightSource1.rayTracingMaterial.color = pg.math.Vector3(227, 141, 43)
-# lightSource1.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
-# lightSource1.rayTracingMaterial.emissionStrength = 255
+# lightSource1.rayTracingMaterial.color = pg.math.Vector3(227, 141, 43)
+lightSource1.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
+lightSource1.rayTracingMaterial.emissionStrength = 255
 
-# lightSource2 = triangle(frontLeftT, frontRightT, backRightT)
 lightSource2 = triangle(CtopFrontRight, CtopFrontLeft, CtopBackRight)
-lightSource2.rayTracingMaterial.color = pg.math.Vector3(227, 141, 43)
-# lightSource2.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
-# lightSource2.rayTracingMaterial.emissionStrength = 255
+# lightSource2.rayTracingMaterial.color = pg.math.Vector3(227, 141, 43)
+lightSource2.rayTracingMaterial.emissionColor = pg.math.Vector3(1, 1, 1)
+lightSource2.rayTracingMaterial.emissionStrength = 255
 
 mainSphere = sphere(mainSpherePos, 100)
 mainSphere.rayTracingMaterial.color = pg.math.Vector3(204, 218, 240)
@@ -103,11 +96,11 @@ blueSphere.rayTracingMaterial.smoothness = 0.3
 
 
 spheres = []
-spheres.append(mainSphere)
-spheres.append(smallSphere)
-spheres.append(lightSphere)
-spheres.append(mediumSphere)
-spheres.append(blueSphere)
+# spheres.append(mainSphere)
+# spheres.append(smallSphere)
+# spheres.append(lightSphere)
+# spheres.append(mediumSphere)
+# spheres.append(blueSphere)
 
 
 triangles = []
