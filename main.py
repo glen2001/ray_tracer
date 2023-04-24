@@ -1,10 +1,10 @@
 import sys
 import pygame as pg
-import numpy as np
 from classes import *
 from pygame.locals import *
 import time
 from objectPlacement import *
+
 
 #This file is the used to average pixels colors over a number of iterations, as well as display the scene
 
